@@ -1,0 +1,14 @@
+artifact_uri: file:///Users/danielguo/Development/agentic_ai_project/mlflow_eval/mlruns/710876059024047096/ead418e81cb5414c8ac7d01bcd5867dd/artifacts
+end_time: 1762982368050
+entry_point_name: ''
+experiment_id: '710876059024047096'
+lifecycle_stage: active
+run_id: ead418e81cb5414c8ac7d01bcd5867dd
+run_name: sneaky-midge-620
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1762982360654
+status: 3
+tags: []
+user_id: danielguo

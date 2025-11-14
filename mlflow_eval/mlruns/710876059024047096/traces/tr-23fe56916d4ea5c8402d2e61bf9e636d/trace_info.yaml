@@ -1,0 +1,10 @@
+execution_duration_ms: 1603
+request_preview: What is the capital of France?
+request_time: '2025-11-12T21:38:51.402Z'
+response_preview: Paris.
+state: OK
+trace_id: tr-23fe56916d4ea5c8402d2e61bf9e636d
+trace_location:
+  mlflow_experiment:
+    experiment_id: '710876059024047096'
+  type: MLFLOW_EXPERIMENT

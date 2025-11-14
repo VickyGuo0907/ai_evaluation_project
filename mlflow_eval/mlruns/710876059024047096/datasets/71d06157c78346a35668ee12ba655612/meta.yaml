@@ -1,0 +1,10 @@
+digest: c9f31245
+name: dataset
+profile: '{"num_rows": 3, "num_elements": 6}'
+schema: '{"mlflow_colspec": [{"type": "object", "properties": {"question": {"type":
+  "string", "required": true}}, "name": "inputs", "required": true}, {"type": "object",
+  "properties": {"expected_response": {"type": "string", "required": true}}, "name":
+  "expectations", "required": true}]}'
+source: '{"tags": {"mlflow.user": "danielguo", "mlflow.source.name": "/Users/danielguo/Development/agentic_ai_project/mlflow_eval/rag_evaluation.py",
+  "mlflow.source.type": "LOCAL"}}'
+source_type: code

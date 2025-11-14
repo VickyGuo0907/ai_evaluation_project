@@ -1,0 +1,14 @@
+artifact_uri: file:///Users/danielguo/Development/agentic_ai_project/mlflow_eval/mlruns/591576207385125228/4650ea6274b844cc8c12b0555fa0a50c/artifacts
+end_time: 1762981348789
+entry_point_name: ''
+experiment_id: '591576207385125228'
+lifecycle_stage: active
+run_id: 4650ea6274b844cc8c12b0555fa0a50c
+run_name: orderly-loon-393
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1762981343482
+status: 3
+tags: []
+user_id: danielguo

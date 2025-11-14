@@ -1,0 +1,14 @@
+assessment_id: a-eab8af943da6491e89199e2d0954bf8c
+assessment_name: expected_response
+create_time: '2025-11-12T21:19:25.955Z'
+expectation:
+  value: Wright Brothers
+last_update_time: '2025-11-12T21:19:25.955Z'
+metadata:
+  mlflow.assessment.sourceRunId: ead418e81cb5414c8ac7d01bcd5867dd
+source:
+  source_id: danielguo
+  source_type: HUMAN
+span_id: 72563dd620fadc00
+trace_id: tr-1ab83e0f7e6b71c012d7f3a5d36afb8c
+valid: true

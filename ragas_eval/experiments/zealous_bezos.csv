@@ -1,0 +1,12 @@
+question,grading_notes,response,score,log_file
+What is ragas 0.3,"- experimentation as the central pillar - provides abstraction for datasets, experiments and metrics - supports evals for RAG, LLM workflows and Agents","Based on the provided documents, I couldn't find any direct information about ""Ragas 0.3"". However, I can tell you that there is a well-known music notation system called ""Sufi Ragas"" which has different numbers (e.g., ""Adi Ragas"", ""Khajji Ragas"") but not specifically ""Ragas 0.3"".
+
+However, it's also worth noting that Ragas are typically represented by numbers in Indian classical music, such as ""Yaman"", ""Kafi"", or ""Asavari"". Unfortunately, without more information, it's difficult to determine the specific meaning of ""Ragas 0.3"".",fail,logs/rag_run_20251112_150558_1920_2025-11-12T15-06-03-252033.json
+What metrics are supported in ragas 0.3?,"- provides abstraction for discrete, numerical and ranking metrics","The answer is not explicitly stated in the provided documents. However, based on the context, it can be inferred that the metrics supported by raga 0.3 are likely related to musical analysis or properties of ragas.
+
+Unfortunately, without additional information about raga 0.3, its features, or the metrics used to analyze or describe ragas, I cannot provide a specific answer. If you have any more documents or context about raga 0.3, I'll be happy to try and help further!",fail,logs/rag_run_20251112_150604_8726_2025-11-12T15-06-06-637428.json
+how are experiment results stored in ragas 0.3?,"- configured using different backends like local, gdrive, etc - stored under experiments/ folder in the backend storage","Unfortunately, I couldn't find any information about ""Ragas 0.3"" in the provided documents. The mentioned Documents appear to be related to Indian classical music and ""Ragas"", but not specifically to ""Ragas 0.3"".
+
+However, based on the context of Indian classical music, it is possible that ""Ragas 0.3"" might refer to a software or system used to store experiment results or organize ragas in some way. Without more information, I can only speculate.
+
+If you have more context or details about ""Ragas 0.3"", I'd be happy to try and help further!",fail,logs/rag_run_20251112_150607_9036_2025-11-12T15-06-10-014565.json

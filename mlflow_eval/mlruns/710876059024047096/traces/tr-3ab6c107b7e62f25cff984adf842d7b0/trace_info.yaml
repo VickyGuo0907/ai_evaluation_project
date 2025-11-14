@@ -1,0 +1,10 @@
+execution_duration_ms: 1062
+request_preview: Who wrote Romeo and Juliet?
+request_time: '2025-11-12T21:29:08.101Z'
+response_preview: William Shakespeare.
+state: OK
+trace_id: tr-3ab6c107b7e62f25cff984adf842d7b0
+trace_location:
+  mlflow_experiment:
+    experiment_id: '710876059024047096'
+  type: MLFLOW_EXPERIMENT

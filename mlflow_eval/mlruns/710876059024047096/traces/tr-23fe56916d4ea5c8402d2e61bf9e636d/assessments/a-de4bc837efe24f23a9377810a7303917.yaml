@@ -1,0 +1,14 @@
+assessment_id: a-de4bc837efe24f23a9377810a7303917
+assessment_name: expected_response
+create_time: '2025-11-12T21:38:53.337Z'
+expectation:
+  value: Paris
+last_update_time: '2025-11-12T21:38:53.337Z'
+metadata:
+  mlflow.assessment.sourceRunId: 0450d34e5a7446d8ba8ea9e9abba51ba
+source:
+  source_id: danielguo
+  source_type: HUMAN
+span_id: 95606f4d844ee860
+trace_id: tr-23fe56916d4ea5c8402d2e61bf9e636d
+valid: true

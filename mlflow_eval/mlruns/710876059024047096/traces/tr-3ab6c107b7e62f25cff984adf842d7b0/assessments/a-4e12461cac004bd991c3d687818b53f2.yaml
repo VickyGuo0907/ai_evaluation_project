@@ -1,0 +1,14 @@
+assessment_id: a-4e12461cac004bd991c3d687818b53f2
+assessment_name: expected_response
+create_time: '2025-11-12T21:29:09.252Z'
+expectation:
+  value: William Shakespeare
+last_update_time: '2025-11-12T21:29:09.252Z'
+metadata:
+  mlflow.assessment.sourceRunId: 6ab275506a344eb7ae05e301f596f7f3
+source:
+  source_id: danielguo
+  source_type: HUMAN
+span_id: 0b37d2527a1bdb94
+trace_id: tr-3ab6c107b7e62f25cff984adf842d7b0
+valid: true

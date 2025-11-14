@@ -1,0 +1,11 @@
+openai
+deepeval
+ollama
+sentence-transformers
+chromadb
+numpy
+mlflow
+litellm
+ragas
+python-dotenv
+

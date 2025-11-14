@@ -1,0 +1,43 @@
+assessment_id: a-c1c2dccda7fd4b7da0b6968cc35d929a
+assessment_name: correctness
+create_time: '2025-11-12T21:02:25.125Z'
+feedback:
+  error:
+    error_code: SCORER_ERROR
+    error_message: OpenAI API key must be set in the ``OPENAI_API_KEY`` environment
+      variable.
+    stack_trace: "Traceback (most recent call last):\n  File \"/Users/danielguo/miniconda3/envs/agentic_ai_project/lib/python3.11/site-packages/mlflow/genai/evaluation/harness.py\",
+      line 210, in run_scorer\n    value = scorer_func(\n            ^^^^^^^^^^^^\n
+      \ File \"/Users/danielguo/miniconda3/envs/agentic_ai_project/lib/python3.11/site-packages/mlflow/genai/scorers/base.py\",
+      line 391, in run\n    result = self(**filtered)\n             ^^^^^^^^^^^^^^^^\n
+      \ File \"/Users/danielguo/miniconda3/envs/agentic_ai_project/lib/python3.11/site-packages/mlflow/genai/scorers/builtin_scorers.py\",
+      line 1343, in __call__\n    feedback = judges.is_correct(\n               ^^^^^^^^^^^^^^^^^^\n
+      \ File \"/Users/danielguo/miniconda3/envs/agentic_ai_project/lib/python3.11/site-packages/mlflow/genai/judges/builtin.py\",
+      line 272, in is_correct\n    feedback = invoke_judge_model(model, prompt, assessment_name=assessment_name)\n
+      \              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n
+      \ File \"/Users/danielguo/miniconda3/envs/agentic_ai_project/lib/python3.11/site-packages/mlflow/telemetry/track.py\",
+      line 30, in wrapper\n    result = func(*args, **kwargs)\n             ^^^^^^^^^^^^^^^^^^^^^\n
+      \ File \"/Users/danielguo/miniconda3/envs/agentic_ai_project/lib/python3.11/site-packages/mlflow/genai/judges/utils/invocation_utils.py\",
+      line 190, in invoke_judge_model\n    response = _invoke_via_gateway(model_uri,
+      model_provider, prompt)\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n
+      \ File \"/Users/danielguo/miniconda3/envs/agentic_ai_project/lib/python3.11/site-packages/mlflow/genai/judges/adapters/gateway_adapter.py\",
+      line 38, in _invoke_via_gateway\n    return score_model_on_payload(\n           ^^^^^^^^^^^^^^^^^^^^^^^\n
+      \ File \"/Users/danielguo/miniconda3/envs/agentic_ai_project/lib/python3.11/site-packages/mlflow/metrics/genai/model_utils.py\",
+      line 70, in score_model_on_payload\n    return _call_llm_provider_api(\n           ^^^^^^^^^^^^^^^^^^^^^^^\n
+      \ File \"/Users/danielguo/miniconda3/envs/agentic_ai_project/lib/python3.11/site-packages/mlflow/metrics/genai/model_utils.py\",
+      line 134, in _call_llm_provider_api\n    provider = _get_provider_instance(provider_name,
+      model)\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File
+      \"/Users/danielguo/miniconda3/envs/agentic_ai_project/lib/python3.11/site-packages/mlflow/metrics/genai/model_utils.py\",
+      line 206, in _get_provider_instance\n    api_token.refresh()\n  File \"/Users/danielguo/miniconda3/envs/agentic_ai_project/lib/python3.11/site-packages/mlflow/utils/openai_utils.py\",
+      line 121, in refresh\n    raise mlflow.MlflowException(\nmlflow.exceptions.MlflowException:
+      OpenAI API key must be set in the ``OPENAI_API_KEY`` environment variable.\n"
+  value: null
+last_update_time: '2025-11-12T21:02:25.125Z'
+metadata:
+  mlflow.assessment.sourceRunId: 4650ea6274b844cc8c12b0555fa0a50c
+source:
+  source_id: correctness
+  source_type: CODE
+span_id: 3c21bf5760f76a63
+trace_id: tr-701391b2bf58b50637dfc5f148067ec0
+valid: true

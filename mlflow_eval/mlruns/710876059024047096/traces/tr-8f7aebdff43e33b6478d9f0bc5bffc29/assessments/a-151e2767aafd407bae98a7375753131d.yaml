@@ -1,0 +1,14 @@
+assessment_id: a-151e2767aafd407bae98a7375753131d
+assessment_name: is_concise
+create_time: '2025-11-12T21:19:26.636Z'
+feedback:
+  value: true
+last_update_time: '2025-11-12T21:19:26.636Z'
+metadata:
+  mlflow.assessment.sourceRunId: ead418e81cb5414c8ac7d01bcd5867dd
+source:
+  source_id: is_concise
+  source_type: CODE
+span_id: a56d6b1f5f930306
+trace_id: tr-8f7aebdff43e33b6478d9f0bc5bffc29
+valid: true

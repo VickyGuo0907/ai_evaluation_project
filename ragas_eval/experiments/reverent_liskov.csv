@@ -1,0 +1,14 @@
+question,grading_notes,response,score,log_file
+how are experiment results stored in ragas 0.3?,"- configured using different backends like local, gdrive, etc - stored under experiments/ folder in the backend storage","Based on the provided documents, none directly mention how experiment results are stored in RAGAS 0.3. The documents appear to be about Indian classical music and concepts related to the term ""raga."" It is unlikely that they would have information relevant to a software or technical concept like experimental result storage.
+
+However, I can try to make an educated guess. If RAGAS 0.3 is some kind of software, application, or system, one might guess based on common practices in software development that experiment results are typically stored in databases, data warehouses, or data visualization tools. But without more context, this is purely speculative and can't be reliably confirmed.",fail,logs/rag_run_20251112_201208_4244_2025-11-12T20-12-14-372986.json
+What metrics are supported in ragas 0.3?,"- provides abstraction for discrete, numerical and ranking metrics","Given the documents provided, I couldn't find any direct information about specific metrics supported by Ragas 0.3. However, I can make an educated guess based on the context.
+
+Unfortunately, none of the provided documents mention ""Ragas 0.3"" directly, which suggests that 0.3 might be a version or edition of the resource material (e.g., a library, framework, or tool) that is focused on ragas and their characteristics. 
+
+Since I couldn't find any explicit information about metrics supported by Ragas 0.3 from the given documents, I would recommend checking the official documentation or resources for Ragas 0.3 for an accurate answer.
+
+If you provide more context or details about what metrics are expected to be supported in Ragas 0.3 (e.g., musical analysis metrics, emotion-sentiment metrics), I may be able to offer a more specific answer based on general knowledge of Music Information Retrieval (MIR) libraries and frameworks that support ragas.",fail,logs/rag_run_20251112_201215_0649_2025-11-12T20-12-18-992398.json
+What is ragas 0.3,"- experimentation as the central pillar - provides abstraction for datasets, experiments and metrics - supports evals for RAG, LLM workflows and Agents","Based on the provided documents, I couldn't find any information about ""Ragas 0.3"". The available information only mentions general definitions and characteristics of ragas from Indian classical music.
+
+However, it's possible that Ragas 0.3 is a specific software or project related to music, but without further context or information, I couldn't determine its meaning or purpose.",fail,logs/rag_run_20251112_201220_2347_2025-11-12T20-12-21-569335.json

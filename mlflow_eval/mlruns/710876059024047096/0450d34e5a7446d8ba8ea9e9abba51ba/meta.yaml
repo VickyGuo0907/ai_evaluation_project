@@ -1,0 +1,14 @@
+artifact_uri: file:///Users/danielguo/Development/agentic_ai_project/mlflow_eval/mlruns/710876059024047096/0450d34e5a7446d8ba8ea9e9abba51ba/artifacts
+end_time: 1762983537165
+entry_point_name: ''
+experiment_id: '710876059024047096'
+lifecycle_stage: active
+run_id: 0450d34e5a7446d8ba8ea9e9abba51ba
+run_name: powerful-asp-891
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1762983531386
+status: 3
+tags: []
+user_id: danielguo

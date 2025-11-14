@@ -1,0 +1,14 @@
+artifact_uri: file:///Users/danielguo/Development/agentic_ai_project/mlflow_eval/mlruns/710876059024047096/e3e34a0e7cb24c8099736a83fdf2b829/artifacts
+end_time: 1762983159102
+entry_point_name: ''
+experiment_id: '710876059024047096'
+lifecycle_stage: active
+run_id: e3e34a0e7cb24c8099736a83fdf2b829
+run_name: abrasive-grouse-285
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1762983154946
+status: 3
+tags: []
+user_id: danielguo

@@ -1,0 +1,11 @@
+execution_duration_ms: 4076
+request_preview: Who was the first person to build an airplane?
+request_time: '2025-11-12T21:32:34.959Z'
+response_preview: The first successful powered airplane was built by **Orville and
+  Wilbur Wright** (the Wright Brothers) in 1903.
+state: OK
+trace_id: tr-792016a5c8f3851f15b119af19019498
+trace_location:
+  mlflow_experiment:
+    experiment_id: '710876059024047096'
+  type: MLFLOW_EXPERIMENT

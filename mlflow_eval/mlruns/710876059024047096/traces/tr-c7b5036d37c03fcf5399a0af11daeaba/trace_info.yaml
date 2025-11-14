@@ -1,0 +1,12 @@
+execution_duration_ms: 6870
+request_preview: Who was the first person to build an airplane?
+request_time: '2025-11-12T21:29:08.101Z'
+response_preview: The first person‑team to build a human‑aircraft that flew under
+  its own power was **Orville and Wilbur Wright**. Their 1903 “Wright Flyer” achieved
+  the first controlled, powered airplane flight on December 17, 1903.
+state: OK
+trace_id: tr-c7b5036d37c03fcf5399a0af11daeaba
+trace_location:
+  mlflow_experiment:
+    experiment_id: '710876059024047096'
+  type: MLFLOW_EXPERIMENT
