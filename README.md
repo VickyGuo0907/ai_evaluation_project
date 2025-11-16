@@ -141,9 +141,6 @@ ollama pull gpt-oss:20b
 ollama pull llama2
 
 # Alternative models you can try
-ollama pull mistral
-ollama pull mixtral
-ollama pull phi
 ollama pull llama3
 ```
 
@@ -153,9 +150,7 @@ ollama pull llama3
 2. Navigate to the "Discover" tab
 3. Search and download models such as:
    - Llama 3 (8B or 70B variants)
-   - Mistral 7B
-   - Mixtral 8x7B
-   - Phi-3
+   - gemma-3-27b-it
 4. Go to the "Local Server" tab
 5. Select your downloaded model
 6. Click "Start Server" (default: http://localhost:1234)

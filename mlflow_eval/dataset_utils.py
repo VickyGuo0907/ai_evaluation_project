@@ -1,16 +1,19 @@
 """Utility functions for dataset management in MLflow evaluations."""
+
 from pathlib import Path
 from typing import Tuple, Dict, Any
 import yaml
 from mlflow.genai.datasets import create_dataset, set_dataset_tags
 
 
-def load_test_cases(file_path: str = "test_cases_2.yaml") -> Tuple[list, Dict[str, Any]]:
+def load_test_cases(
+    file_path: str = "test_cases_2.yaml",
+) -> Tuple[list, Dict[str, Any]]:
     """Load test cases and metadata from YAML file.
-    
+
     Args:
         file_path: Path to the YAML file containing test cases
-        
+
     Returns:
         Tuple of (test_cases, metadata) where test_cases is a list of test cases
         and metadata is a dictionary of additional information
@@ -18,26 +21,26 @@ def load_test_cases(file_path: str = "test_cases_2.yaml") -> Tuple[list, Dict[st
     script_dir = Path(__file__).parent
     yaml_path = script_dir / file_path
 
-    with open(yaml_path, 'r') as f:
+    with open(yaml_path, "r") as f:
         data = yaml.safe_load(f)
 
-    return data['test_cases'], data.get('metadata', {})
+    return data["test_cases"], data.get("metadata", {})
 
 
 def create_evaluation_dataset(
-        experiment_ids: list,
-        dataset_name: str = "evaluation_test_set",
-        tags: dict = None,
-        test_case_file_path: str = "test_cases_2.yaml"
+    experiment_ids: list,
+    dataset_name: str = "evaluation_test_set",
+    tags: dict = None,
+    test_case_file_path: str = "test_cases_2.yaml",
 ):
     """Create and configure an evaluation dataset.
-    
+
     Args:
         experiment_ids: List of experiment IDs to associate with the dataset
         dataset_name: Name for the new dataset
         tags: Additional tags to apply to the dataset
         test_case_file_path: Path to YAML file containing test cases
-        
+
     Returns:
         Tuple of (dataset, metadata) where dataset is the created dataset
         and metadata is the loaded metadata from the test cases file
