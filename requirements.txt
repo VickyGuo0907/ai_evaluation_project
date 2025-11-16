@@ -8,4 +8,6 @@ mlflow
 litellm
 ragas
 python-dotenv
-
+pyyaml
+pandas
+pyspark

@@ -1,0 +1,80 @@
+test_cases:
+  - inputs:
+      question: "What is the capital of France?"
+      context: "general_knowledge"
+    expectations:
+      expected_response: "Paris is the capital of France."
+      expected_facts:
+        - "Paris"
+        - "capital of France"
+      tone: "factual"
+      must_include: [ "Paris", "paris"]
+      must_not_include: [ ]
+      accuracy: 1.0
+
+  - inputs:
+      question: "Who wrote 'Pride and Prejudice'?"
+      context: "literature"
+    expectations:
+      expected_response: "'Pride and Prejudice' was written by Jane Austen."
+      expected_facts:
+        - "Jane Austen"
+        - "Pride and Prejudice"
+      tone: "informative"
+      must_include: [ "Jane Austen"]
+      must_not_include: [ ]
+      accuracy: 1.0
+
+  - inputs:
+      question: "What is the boiling point of water at sea level in Celsius?"
+      context: "science"
+    expectations:
+      expected_response: "The boiling point of water at sea level is 100°C."
+      expected_facts:
+        - "100°C"
+        - "boiling point"
+        - "sea level"
+      tone: "factual"
+      must_include: [ "100°C", "boiling point", "sea level"]
+      must_not_include: [ ]
+      accuracy: 1.0
+
+  - inputs:
+      question: "If I have 3 apples and buy 5 more, then give away 2, how many do I have?"
+      context: "math_problem"
+    expectations:
+      expected_response: "You will have 6 apples."
+      expected_facts:
+        - "3 + 5 - 2 = 6"
+      tone: "simple"
+      contains_steps: true
+
+  - inputs:
+      question: "A train leaves at 8:00 AM and travels at 60 km/h. How far will it go by 10:00 AM?"
+      context: "math_problem"
+    expectations:
+      expected_response: "The train will travel 120 km in 2 hours."
+      expected_facts:
+        - "Speed = 60 km/h"
+        - "Time = 2 hours"
+        - "Distance = 120 km"
+      tone: "factual"
+      contains_steps: true
+
+  - inputs:
+      question: "If a rectangle has a length of 10 and width of 4, what is its area?"
+      context: "math_problem"
+    expectations:
+      expected_response: "The area of the rectangle is 40."
+      expected_facts:
+        - "Length = 10"
+        - "Width = 4"
+        - "Area = 40"
+      tone: "factual"
+      contains_steps: true
+
+metadata:
+  version: "1.1"
+  last_updated: "2025-11-15"
+  description: "6 test cases for RAG evaluation with must_include/must_not_include for MLflow automated scoring"
+  total_cases: 6

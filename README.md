@@ -1,6 +1,6 @@
 # AI Evaluation Project
 
-This project demonstrates how to evaluate Large Language Models (LLMs) and RAG (Retrieval-Augmented Generation) systems using three popular evaluation frameworks: **DeepEval**, **MLflow**, and **Ragas**. All evaluations can be performed using local models via Ollama or cloud-based LLM providers.
+This project demonstrates how to evaluate Large Language Models (LLMs) and RAG (Retrieval-Augmented Generation) systems using three popular evaluation frameworks: **DeepEval**, **MLflow**, and **Ragas**. All evaluations are primarily designed to work with **local models via Ollama and LM Studio**, though cloud-based LLM providers are also supported as alternatives.
 
 ## Table of Contents
 
@@ -27,6 +27,23 @@ This project provides hands-on examples for evaluating LLM applications using th
 
 Each framework has unique strengths, and this project helps you understand which one fits your specific use case.
 
+### Local-First LLM Approach
+
+This project is designed with a **local-first philosophy**, primarily using:
+
+- **Ollama**: Fast, lightweight local LLM server with easy model management
+- **LM Studio**: User-friendly GUI application with OpenAI-compatible API
+
+**Why Local Models?**
+- Privacy and data security
+- No API costs
+- Full control over model selection
+- Offline operation capability
+- Faster iteration during development
+- No rate limits
+
+Cloud LLM providers (OpenAI, Anthropic, Google) are supported as alternatives, but the examples and default configurations focus on Ollama and LM Studio.
+
 ## Platform Comparison
 
 | Feature | DeepEval | MLflow | Ragas |
@@ -40,7 +57,7 @@ Each framework has unique strengths, and this project helps you understand which
 | **Experiment Tracking** | Yes | Yes (extensive) | Yes |
 | **Model Deployment** | No | Yes | No |
 | **RAG Support** | Yes | Yes | Specialized |
-| **Local LLM Support** | Yes (Ollama) | Yes (various) | Yes (Ollama) |
+| **Local LLM Support** | Yes (Ollama, LM Studio) | Yes (various) | Yes (Ollama, LM Studio) |
 | **Best For** | Comprehensive LLM testing | End-to-end ML/LLM workflows | RAG-specific evaluation |
 
 ## Prerequisites
@@ -52,7 +69,7 @@ Each framework has unique strengths, and this project helps you understand which
    python --version
    ```
 
-2. **Ollama** (for local LLM evaluation)
+2. **Ollama** (for local LLM evaluation - recommended)
    ```bash
    # macOS
    brew install ollama
@@ -63,18 +80,27 @@ Each framework has unique strengths, and this project helps you understand which
    ollama serve
    ```
 
-3. **Git** (for cloning the repository)
+3. **LM Studio** (alternative local LLM option)
+   - Download from https://lmstudio.ai
+   - Install and launch the application
+   - Download your preferred models through the LM Studio UI
+   - Start the local server (default: http://localhost:1234)
+   - LM Studio provides an OpenAI-compatible API endpoint
+
+4. **Git** (for cloning the repository)
    ```bash
    git --version
    ```
 
 ### Optional: Cloud LLM API Keys
 
-If you prefer cloud-based models over local Ollama models:
+If you prefer cloud-based models as an alternative to local Ollama/LM Studio models:
 
 - **OpenAI**: Get API key from https://platform.openai.com
 - **Anthropic Claude**: Get API key from https://console.anthropic.com
 - **Google Gemini**: Get API key from https://ai.google.dev
+
+**Note**: Cloud providers are optional. This project is designed to work primarily with Ollama and LM Studio.
 
 ## Installation
 
@@ -103,7 +129,9 @@ venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-### 4. Pull Ollama Models (if using local models)
+### 4. Setup Local Models
+
+**Option A: Using Ollama (Recommended)**
 
 ```bash
 # For DeepEval examples
@@ -116,21 +144,96 @@ ollama pull llama2
 ollama pull mistral
 ollama pull mixtral
 ollama pull phi
+ollama pull llama3
 ```
 
-### 5. Configure Environment Variables (Optional)
+**Option B: Using LM Studio**
 
-If using cloud LLM providers, create a `.env` file in each subdirectory:
+1. Launch LM Studio application
+2. Navigate to the "Discover" tab
+3. Search and download models such as:
+   - Llama 3 (8B or 70B variants)
+   - Mistral 7B
+   - Mixtral 8x7B
+   - Phi-3
+4. Go to the "Local Server" tab
+5. Select your downloaded model
+6. Click "Start Server" (default: http://localhost:1234)
+7. The server provides an OpenAI-compatible API endpoint
 
+### 5. Configure Environment Variables
+
+Create a `.env` file in each subdirectory to configure your LLM provider:
+
+**For Ollama (Primary - Local)**:
 ```bash
-# For OpenAI
+# Ollama Configuration
+OLLAMA_BASE_URL=http://localhost:11434
+OLLAMA_MODEL=llama2  # or mistral, mixtral, llama3, etc.
+
+# Optional: Set default model for specific use cases
+OLLAMA_EVAL_MODEL=gpt-oss:20b
+OLLAMA_EMBED_MODEL=nomic-embed-text
+```
+
+**For LM Studio (Primary - Local)**:
+```bash
+# LM Studio Configuration (OpenAI-compatible)
+OPENAI_API_BASE=http://localhost:1234/v1
+OPENAI_API_KEY=lm-studio  # LM Studio doesn't require a real key
+LM_STUDIO_MODEL=llama-3-8b  # Name of your loaded model in LM Studio
+
+# Alternative: Use generic provider setting
+LLM_PROVIDER=lmstudio
+LLM_BASE_URL=http://localhost:1234/v1
+```
+
+**For OpenAI (Alternative - Cloud)**:
+```bash
+# OpenAI Configuration
 OPENAI_API_KEY=your-openai-key
+OPENAI_MODEL=gpt-4o  # or gpt-3.5-turbo, gpt-4-turbo, etc.
+```
 
-# For Anthropic
+**For Anthropic Claude (Alternative - Cloud)**:
+```bash
+# Anthropic Configuration
 ANTHROPIC_API_KEY=your-anthropic-key
+ANTHROPIC_MODEL=claude-3-5-sonnet-20241022
+```
 
-# For Google Gemini
+**For Google Gemini (Alternative - Cloud)**:
+```bash
+# Google Gemini Configuration
 GOOGLE_API_KEY=your-google-key
+GEMINI_MODEL=gemini-1.5-pro
+```
+
+**For MLflow with Ollama (mlflow_eval/)**:
+```bash
+# Ollama API Configuration
+OLLAMA_API_BASE=http://localhost:11434/v1
+OLLAMA_API_KEY=no_need
+
+# Model Configuration
+RESULT_MODEL_NAME=llama3.2:3b              # Model for generating responses
+LLM_AS_JUDGE_MODEL_NAME=openai:/gemma:27b   # Model for evaluation scoring
+
+# MLflow Tracking
+MLFLOW_TRACKING_URI=sqlite:///mlflow.db
+```
+
+**Example `.env` file for local-first setup**:
+```bash
+# Primary: Use Ollama
+LLM_PROVIDER=ollama
+OLLAMA_BASE_URL=http://localhost:11434
+OLLAMA_MODEL=llama2
+
+# Backup: LM Studio (if Ollama unavailable)
+# LLM_PROVIDER=lmstudio
+# OPENAI_API_BASE=http://localhost:1234/v1
+# OPENAI_API_KEY=lm-studio
 ```
 
 ## Quick Start
@@ -148,10 +251,18 @@ python rag_evaluation.py
 
 ```bash
 cd mlflow_eval
-# Start MLflow UI (optional)
+
+# Make sure Ollama is running with required models
+ollama pull llama3.2:3b
+ollama pull gemma:27b
+
+# Start MLflow UI (optional but recommended for viewing results)
 ./mlflow_server.sh
-# Run evaluation
+
+# In a new terminal, run the evaluation
 python rag_evaluation.py
+
+# View results at http://localhost:5000
 ```
 
 ### Test Ragas
@@ -178,12 +289,14 @@ ai_evaluation_project/
 │   └── deepeval_results/          # Evaluation results
 │
 ├── mlflow_eval/                   # MLflow examples
-│   ├── .env                       # MLflow configuration
+│   ├── .env                       # MLflow configuration (Ollama/LM Studio)
 │   ├── mlflow_server.sh           # MLflow UI server script
 │   ├── rag_evaluation.py          # RAG evaluation with MLflow
-│   ├── mlflow.db                  # MLflow tracking database
+│   ├── dataset_utils.py           # Dataset management utilities
+│   ├── mlflow.db                  # MLflow tracking database (SQLite)
 │   ├── mlruns/                    # MLflow experiment data
 │   └── eval_data/                 # Evaluation datasets
+│       └── test_cases_1.yaml      # YAML test case definitions
 │
 └── ragas_eval/                    # Ragas examples
     ├── README.md                  # Detailed Ragas guide
@@ -243,14 +356,45 @@ python llm_as_judge_evaluation.py
 - Built-in LLM evaluation metrics
 - Web UI for visualization
 - Trace logging and debugging
+- YAML-based dataset management
+- Custom and built-in scorers
 
 **Key Features**:
-- Integrated experiment tracking
+- Integrated experiment tracking with SQLite backend
 - Model versioning and deployment
 - Rich web UI for exploration
 - Production-ready MLOps platform
-- Custom metric support
-- Distributed evaluation
+- Custom metric support (accuracy_scorer)
+- Built-in LLM scorers (Correctness, Guidelines)
+- YAML-driven test case management
+- Local Ollama model integration
+
+**Implementation Details**:
+
+The MLflow evaluation system includes:
+
+1. **Dataset Management** (`dataset_utils.py`):
+   - Load test cases from YAML files
+   - Create and configure evaluation datasets
+   - Automatic dataset versioning and tagging
+   - Metadata tracking for test case management
+
+2. **Test Cases** (`eval_data/test_cases_1.yaml`):
+   - Structured YAML format for test cases
+   - Includes questions, contexts, and expectations
+   - Expected responses, facts, and accuracy thresholds
+   - Metadata tracking (version, description, last_updated)
+
+3. **Evaluation Scorers** (`rag_evaluation.py`):
+   - **Correctness**: LLM-as-judge scoring using local models
+   - **Guidelines**: Validates responses against language/quality guidelines
+   - **accuracy_scorer**: Custom scorer with exact/partial matching (1.0/0.5/0.0 scale)
+
+4. **Model Configuration**:
+   - Uses Ollama for local LLM inference
+   - Separate models for generation (`llama3.2:3b`) and judging (`gemma-3-27b-it`)
+   - OpenAI-compatible API integration
+   - SQLite tracking database for persistent storage
 
 **Use Cases**:
 - End-to-end ML/LLM workflow management
@@ -258,18 +402,64 @@ python llm_as_judge_evaluation.py
 - Production model deployment
 - Long-term experiment tracking
 - A/B testing of models
+- YAML-driven regression testing
+- Local LLM evaluation without cloud dependencies
 
 **Getting Started**:
 ```bash
 cd mlflow_eval
-# Start UI (optional)
+
+# Configure your models in .env file
+# RESULT_MODEL_NAME=llama3.2:3b
+# LLM_AS_JUDGE_MODEL_NAME=openai:/gemma-3-27b-it
+
+# Start MLflow UI (optional but recommended)
 ./mlflow_server.sh
-# Run evaluation
+
+# Run evaluation with test cases
 python rag_evaluation.py
+
 # View results at http://localhost:5000
 ```
 
-**MLflow UI**: Access the tracking UI at `http://localhost:5000` to explore experiments, compare runs, and visualize metrics.
+**MLflow UI**: Access the tracking UI at `http://localhost:5000` to explore experiments, compare runs, and visualize metrics. The UI provides detailed views of:
+- Scorer metrics (Correctness, Guidelines, Accuracy)
+- Test case results and comparisons
+- Dataset versions and metadata
+- Run parameters and artifacts
+
+**Creating Custom Test Cases**:
+
+The YAML test case format allows you to define comprehensive test scenarios:
+
+```yaml
+test_cases:
+  - inputs:
+      question: "What is the capital of France?"
+      context: "general_knowledge"
+    expectations:
+      expected_response: "Paris is the capital of France."
+      expected_facts:
+        - "Paris"
+        - "capital of France"
+      tone: "factual"
+      must_include: ["Paris", "paris"]
+      must_not_include: []
+      accuracy: 1.0
+
+metadata:
+  version: "1.1"
+  last_updated: "2025-11-15"
+  description: "Test cases for RAG evaluation"
+  total_cases: 6
+```
+
+Each test case includes:
+- **inputs**: Question and context for the LLM
+- **expectations**: Expected response, facts, tone, and validation rules
+- **metadata**: Version tracking and dataset description
+
+The `dataset_utils.py` module automatically loads these test cases and creates MLflow datasets with proper versioning and tagging.
 
 ### Ragas Evaluation
 
@@ -324,6 +514,10 @@ python export_csv.py
 - Integration with existing MLOps pipelines
 - Long-term experiment management
 - Local web UI for exploration
+- YAML-based test case management for regression testing
+- Custom and built-in scorer combinations
+- SQLite-backed persistent storage
+- LLM-as-judge evaluation with local models
 
 ### Choose Ragas if you need:
 - RAG-specific evaluation metrics
@@ -343,22 +537,35 @@ python export_csv.py
 
 ### Using Different LLM Providers
 
-All three frameworks support multiple LLM providers:
+All three frameworks support multiple LLM providers. **This project primarily uses Ollama and LM Studio for local LLM evaluation**, but cloud providers are also supported.
 
-**Ollama (Local)**:
+**Ollama (Local - Primary Option)**:
 ```python
 # Already configured in all examples
 # Just ensure Ollama is running
+ollama serve
 ```
 
-**OpenAI**:
+**LM Studio (Local - Primary Option)**:
+```python
+# Start LM Studio server on http://localhost:1234
+# Use OpenAI-compatible endpoint
+import openai
+openai.api_base = "http://localhost:1234/v1"
+openai.api_key = "lm-studio"  # LM Studio doesn't require a real key
+
+# Or use with LangChain/frameworks that support OpenAI
+os.environ["OPENAI_API_BASE"] = "http://localhost:1234/v1"
+```
+
+**OpenAI (Cloud - Alternative)**:
 ```python
 import os
 os.environ["OPENAI_API_KEY"] = "your-key"
 # Update model references to "gpt-4o" or "gpt-3.5-turbo"
 ```
 
-**Anthropic Claude**:
+**Anthropic Claude (Cloud - Alternative)**:
 ```python
 import os
 os.environ["ANTHROPIC_API_KEY"] = "your-key"
@@ -369,13 +576,46 @@ os.environ["ANTHROPIC_API_KEY"] = "your-key"
 
 Each framework supports custom metrics:
 - **DeepEval**: Extend `BaseMetric` class
-- **MLflow**: Use `mlflow.evaluate()` with custom metric functions
+- **MLflow**: Use `mlflow.evaluate()` with custom metric functions or create custom `@scorer` decorated functions
 - **Ragas**: Create custom `Metric` classes
 
-See individual README files for examples.
+Example MLflow custom scorer (`mlflow_eval/rag_evaluation.py:48-74`):
+```python
+@scorer(name="accuracy_scorer")
+def accuracy_scorer(outputs: Any, expectations: dict[str, Any]):
+    """Custom scorer with exact/partial matching"""
+    # Returns 1.0 for exact match, 0.5 for partial, 0.0 for incorrect
+    # Implementation details in mlflow_eval/rag_evaluation.py
+```
 
 ### Modifying Test Datasets
 
+**For MLflow** (YAML-based):
+Create or edit YAML files in `mlflow_eval/eval_data/`:
+```yaml
+test_cases:
+  - inputs:
+      question: "Your question here"
+      context: "category or context"
+    expectations:
+      expected_response: "Expected answer"
+      expected_facts: ["fact1", "fact2"]
+      must_include: ["keyword1"]
+      must_not_include: ["unwanted"]
+```
+
+Then load using `dataset_utils.py`:
+```python
+from dataset_utils import create_evaluation_dataset
+
+dataset, metadata = create_evaluation_dataset(
+    experiment_ids=[experiment_id],
+    dataset_name="my_test_set",
+    test_case_file_path="eval_data/my_test_cases.yaml"
+)
+```
+
+**For DeepEval and Ragas**:
 Edit the respective Python files to add your own:
 - Questions and expected answers
 - Documents for RAG systems
@@ -393,6 +633,24 @@ curl http://localhost:11434/api/tags
 # Start Ollama if not running
 ollama serve
 ```
+
+### LM Studio Connection Issues
+
+```bash
+# Check if LM Studio server is running
+curl http://localhost:1234/v1/models
+
+# If not running:
+# 1. Open LM Studio application
+# 2. Go to "Local Server" tab
+# 3. Select a model
+# 4. Click "Start Server"
+```
+
+**Common LM Studio Issues**:
+- **Port conflict**: Change the port in LM Studio settings if 1234 is in use
+- **Model not loaded**: Ensure a model is selected before starting the server
+- **Slow responses**: LM Studio performance depends on your hardware; use smaller models for faster inference
 
 ### Model Not Found
 
@@ -418,6 +676,46 @@ mlflow server --port 5001  # Use different port
 - Close other applications
 - Ensure sufficient RAM (16GB+ recommended for large models)
 
+### MLflow-Specific Issues
+
+**Dataset Loading Errors**:
+```bash
+# Ensure YAML file exists and is valid
+cat mlflow_eval/eval_data/test_cases_1.yaml
+
+# Check YAML syntax
+python -c "import yaml; yaml.safe_load(open('mlflow_eval/eval_data/test_cases_1.yaml'))"
+```
+
+**SQLite Database Locked**:
+```bash
+# Stop any running MLflow servers
+pkill -f "mlflow server"
+
+# Restart MLflow UI
+cd mlflow_eval
+./mlflow_server.sh
+```
+
+**Model Not Found in Ollama**:
+```bash
+# Check available models
+ollama list
+
+# Pull required models for MLflow eval
+ollama pull llama3.2:3b      # For RESULT_MODEL_NAME
+ollama pull gemma:27b         # For LLM_AS_JUDGE_MODEL_NAME
+```
+
+**Import Error for dataset_utils**:
+```bash
+# Make sure you're in the mlflow_eval directory
+cd mlflow_eval
+python rag_evaluation.py
+
+# Or use absolute imports if running from project root
+```
+
 ## Resources
 
 ### Documentation
@@ -425,6 +723,7 @@ mlflow server --port 5001  # Use different port
 - [MLflow Documentation](https://mlflow.org/docs/latest/index.html)
 - [Ragas Documentation](https://docs.ragas.io)
 - [Ollama Documentation](https://ollama.ai/docs)
+- [LM Studio Documentation](https://lmstudio.ai/docs)
 
 ### Related Tools
 - [ChromaDB](https://docs.trychroma.com/) - Vector database for RAG

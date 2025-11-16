@@ -14,8 +14,8 @@ BACKEND_DB="./mlflow.db"
 HOST="127.0.0.1"
 PORT=5000
 
-# Make sure directories exist
-mkdir -p $ARTIFACT_ROOT
+# MLflow tracking URI
+export MLFLOW_TRACKING_URI="http://127.0.0.1:$PORT"
 
 echo "Starting MLflow server..."
 echo "Backend store URI: sqlite:///$BACKEND_DB"
