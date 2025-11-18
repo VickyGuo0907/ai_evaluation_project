@@ -6,7 +6,7 @@ from mlflow.genai import scorer
 from mlflow.genai.scorers import Correctness, Guidelines
 from openai import OpenAI
 from dotenv import load_dotenv
-from dataset_utils import create_evaluation_dataset
+from dataset_utils import get_or_create_evaluation_dataset
 
 # Load environment variables
 load_dotenv()
@@ -92,8 +92,8 @@ def accuracy_scorer(outputs: Any, expectations: dict[str, Any]):
     return 0.0
 
 
-def create_experiment(name: str) -> str:
-    """Create or get an MLflow experiment with the given name.
+def get_or_create_experiment(name: str) -> str:
+    """Get or Create an MLflow experiment with the given name.
     Args:
         name: Name of the experiment
     Returns:
@@ -107,9 +107,9 @@ def create_experiment(name: str) -> str:
         print(f"Created new experiment: {name} (ID: {experiment_id})")
     elif experiment.lifecycle_stage == "deleted":
         # Restore the deleted experiment
-        client = MlflowClient()
+        my_client = MlflowClient()
         experiment_id = experiment.experiment_id
-        client.restore_experiment(experiment_id)
+        my_client.restore_experiment(experiment_id)
         print(f"Restored deleted experiment: {name} (ID: {experiment_id})")
     else:
         # Use existing active experiment
@@ -121,7 +121,10 @@ def create_experiment(name: str) -> str:
 
 
 def run_evaluation(dataset):
+    easy_to_understand = ("The response must use clear, concise language and structure responses logically. "
+                          "It must avoid jargon or explain technical terms when used.")
     scorers = [
+        # Use Local LLM as judge
         Correctness(model=LLM_AS_JUDGE_MODEL_NAME),
         Guidelines(
             model=LLM_AS_JUDGE_MODEL_NAME,
@@ -130,6 +133,9 @@ def run_evaluation(dataset):
                 "The response must be clear, coherent, and concise.",
             ],
         ),
+        # default use gpt-4o-mini as judge
+        Guidelines(name="easy_to_understand", guidelines=easy_to_understand),
+        # code based scorers
         accuracy_scorer,
     ]
 
@@ -143,22 +149,21 @@ def run_evaluation(dataset):
 if __name__ == "__main__":
     # Evaluation dataset file path
     test_case_file_path = "eval_data/test_cases_1.yaml"
+    experiment_name = "RAG Q&A Evaluation"
+    dataset_name = "assistant_rag_test_set"
 
     # Step 1: Create or get experiment
-    print("Step 1: Creating experiment...")
-    experiment_name = "RAG Q&A Evaluation"
-    experiment_id = create_experiment(experiment_name)
+    print("Step 1: Execute or Create experiment...")
+    experiment_id = get_or_create_experiment(experiment_name)
 
     # Step 2: Create dataset using the utility function
-    print("\nStep 2: Creating dataset from YAML file...")
-    dataset, metadata = create_evaluation_dataset(
+    print("\nStep 2: Get or Create dataset from YAML file...")
+    dataset, metadata = get_or_create_evaluation_dataset(
         experiment_ids=[experiment_id],
-        dataset_name="assistant_rag_test_set",
+        dataset_name=dataset_name,
         tags={"type": "regression", "priority": "critical"},
         test_case_file_path=test_case_file_path,
     )
-
-    print(f"Dataset version: {metadata.get('version', 'N/A')}")
 
     # Step 3: Run evaluation
     print("\nStep 3: Running evaluation...")

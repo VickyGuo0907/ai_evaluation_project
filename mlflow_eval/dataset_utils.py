@@ -2,12 +2,15 @@
 
 from pathlib import Path
 from typing import Tuple, Dict, Any
+
+import mlflow.genai
 import yaml
+from mlflow import MlflowClient
 from mlflow.genai.datasets import create_dataset, set_dataset_tags
 
 
 def load_test_cases(
-    file_path: str = "test_cases_2.yaml",
+        file_path: str = "test_cases_2.yaml",
 ) -> Tuple[list, Dict[str, Any]]:
     """Load test cases and metadata from YAML file.
 
@@ -27,13 +30,13 @@ def load_test_cases(
     return data["test_cases"], data.get("metadata", {})
 
 
-def create_evaluation_dataset(
-    experiment_ids: list,
-    dataset_name: str = "evaluation_test_set",
-    tags: dict = None,
-    test_case_file_path: str = "test_cases_2.yaml",
+def get_or_create_evaluation_dataset(
+        experiment_ids: list,
+        dataset_name: str = "evaluation_test_set",
+        tags: dict = None,
+        test_case_file_path: str = "test_cases_2.yaml",
 ):
-    """Create and configure an evaluation dataset.
+    """Get or Create and configure an evaluation dataset.
 
     Args:
         experiment_ids: List of experiment IDs to associate with the dataset
@@ -45,37 +48,50 @@ def create_evaluation_dataset(
         Tuple of (dataset, metadata) where dataset is the created dataset
         and metadata is the loaded metadata from the test cases file
     """
-    if tags is None:
-        tags = {"type": "regression", "priority": "critical"}
+    metadata = None
+    client = MlflowClient()
+    existing_datasets = client.search_datasets(filter_string=f"name = '{dataset_name}'")
 
-    # Load test cases
-    test_cases, metadata = load_test_cases(test_case_file_path)
+    if len(existing_datasets) > 0:
+        dataset = existing_datasets[0]
+        metadata = existing_datasets[0].tags
+        print(f"Using existing dataset: {dataset_name} (ID: {dataset.dataset_id})")
+        print(f"Dataset has {len(dataset.records)} records")
+        return dataset, metadata
+    else:
+        # Dataset doesn't exist, create a new one
+        print(f"Dataset '{dataset_name}' not found. Creating new dataset...")
+        if tags is None:
+            tags = {"type": "regression", "priority": "critical"}
 
-    # Create dataset
-    dataset = create_dataset(
-        name=dataset_name,
-        experiment_id=experiment_ids,
-        tags=tags,
-    )
+        # Load test cases
+        test_cases, metadata = load_test_cases(test_case_file_path)
 
-    # Merge test cases into dataset
-    dataset.merge_records(test_cases)
+        # Create dataset
+        dataset = create_dataset(
+            name=dataset_name,
+            experiment_id=experiment_ids,
+            tags=tags,
+        )
 
-    # Set dataset tags with metadata
-    set_dataset_tags(
-        dataset_id=dataset.dataset_id,
-        tags={
-            "version": metadata.get("version", "1.0"),
-            "last_updated": metadata.get("last_updated", ""),
-            "description": metadata.get("description", ""),
-            "coverage": "comprehensive",
-            "includes_adversarial": "true",
-            "record_count": str(len(dataset.records)),
-        },
-    )
+        # Merge test cases into dataset
+        dataset.merge_records(test_cases)
 
-    print(f"Created dataset: {dataset.dataset_id}")
-    print(f"Loaded {len(test_cases)} test cases from YAML file")
-    print(f"Dataset version: {metadata.get('version', 'N/A')}")
+        # Set dataset tags with metadata
+        set_dataset_tags(
+            dataset_id=dataset.dataset_id,
+            tags={
+                "version": metadata.get("version", "1.0"),
+                "last_updated": metadata.get("last_updated", ""),
+                "description": metadata.get("description", ""),
+                "coverage": "comprehensive",
+                "includes_adversarial": "true",
+                "record_count": str(len(dataset.records)),
+            },
+        )
+
+        print(f"Created dataset: {dataset.dataset_id}")
+        print(f"Loaded {len(test_cases)} test cases from YAML file")
+        print(f"Dataset version: {metadata.get('version', 'N/A')}")
 
     return dataset, metadata
