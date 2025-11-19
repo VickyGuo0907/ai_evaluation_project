@@ -260,6 +260,8 @@ python rag_evaluation.py
 # View results at http://localhost:5000
 ```
 
+[MLflow Evaluation Demo](images/mlflow_eval.gif)
+
 ### Test Ragas
 
 ```bash
